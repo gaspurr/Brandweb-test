@@ -1,0 +1,6 @@
+.container {
+    display: grid;
+    columns: 2;
+    align-items: center;
+    justify-content: center;
+}

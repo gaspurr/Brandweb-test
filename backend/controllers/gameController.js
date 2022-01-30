@@ -54,7 +54,7 @@ exports.getAllGames = async (req, res) => {
     const checkGames = await Game.find()
 
     if (checkGames) {
-        return res.status(200).send({ checkGames })
+        return res.status(200).send(checkGames)
     } else {
         return res.status(400).send({ message: "Something went wrong or there are now games to display" })
     }
