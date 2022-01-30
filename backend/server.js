@@ -5,14 +5,16 @@ require("dotenv").config()
 const cors = require("cors")
 const parser = require("body-parser")
 const { Game } = require("./models/gamesModel")
+const gameRoutes = require("./routes/games")
 
 const PORT = process.env.PORT || 8080
 
 const app = express()
 app.use(cors())
 app.use(express.json())
-app.use(parser.json({ extended: true }))
-app.use(parser.urlencoded({ extended: true }))
+
+app.use(parser.json({ limit: "2mb", extended: true }))
+app.use(parser.urlencoded({ limit: "2mb", extended: true }))
 app.use(ignoreFavicon)
 
 //this ignores the favicon fetch which makes this some routes to render twice
@@ -23,10 +25,10 @@ function ignoreFavicon(req, res, next) {
     next();
 }
 
-
+app.use("/", gameRoutes)
 
 //fetch from external api
-app.use('/', async function (req, res, next) {
+app.use('/updateGames', async function (req, res, next) {
     const array = []
 
     await axios.get(`https://api.rawg.io/api/games?key=${process.env.API_KEY}`)
@@ -51,12 +53,9 @@ app.use('/', async function (req, res, next) {
             res.send(e)
         })
 
-    console.log(array.length)
-
     const newGameObj = array.map(async game => {
 
         let newGame = new Game(game);
-        console.log("New game ....")
 
         return newGame;
     });
@@ -66,7 +65,6 @@ app.use('/', async function (req, res, next) {
         Promise.all(newGameObj)
             .then(async res => {
                 await Game.create(res);
-                console.log('Yeap')
             }).catch(e => {
                 console.log(e)
             })
