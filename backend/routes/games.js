@@ -14,9 +14,12 @@ const gameController = require("../controllers/gameController")
         min: 8
     })
 ], userController.login)*/
-
+router.get("/query", gameController.paginatedResults)
+router.get(":name", gameController.getOneGame)
+router.get("/names", gameController.getAllGamesNames)
+router.post("/add", gameController.addGame)
+router.post("/update", gameController.updateGameDb)
 router.get("/", gameController.getAllGames)
-router.get("/:name", gameController.getOneGame)
-router.get("/games/names", gameController.getAllGamesNames)
-router.post("/games/add", gameController.addGame)
+
+
 module.exports = router
