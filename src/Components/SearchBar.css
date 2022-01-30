@@ -1,0 +1,25 @@
+.search-results {
+    display: grid;
+    grid-column: 1;
+    background-color: #fff;
+    box-shadow: #000003;
+    margin-top: 5px;
+    border-radius: 2px;
+    height: 10vh;
+    width: 33vh;
+    position:sticky;
+    z-index: 9000;
+    overflow: hidden;
+    overflow-y: auto;
+    font-size: 16px;
+
+}
+
+.search-results::-webkit-scrollable {
+    display: none;
+}
+
+.result-item {
+    text-decoration: none;
+    color: black
+}

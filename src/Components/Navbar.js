@@ -2,6 +2,7 @@ import React from 'react'
 import { InputForm, Form } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import "./Navbar.css"
+import SearchBar from './SearchBar'
 
 function Navbar() {
     return (
@@ -13,12 +14,7 @@ function Navbar() {
                     </NavLink>
                     <ul className="nav-menu">
                         <li className="nav-item">
-                            <Form.Label htmlFor="Searchbar" />
-                            <Form.Control
-                                type="text"
-                                id="search-query"
-                                placeholder="Look up a game"
-                            />
+                            <SearchBar placeholder="Look up a game" />
                         </li>
                     </ul>
                 </div>

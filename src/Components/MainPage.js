@@ -10,22 +10,9 @@ import {
 } from "react-bootstrap"
 
 function MainPage() {
-    const [results, setResults] = useState([])
     const [gameCards, setGameCards] = useState([])
 
-    const fetcher = async (e) => {
-        e.preventDefault()
-        await axios.get("http://localhost:8080/")
-            .then(res => {
-                res.data.forEach(obj => {
-                    setResults(prev => [...prev, obj])
-                })
-                console.log(results)
-            }).catch(e => {
-                console.log(e)
-            })
-    }
-
+        //I should use usememo here
     const fetchCards = async () => {
         await axios.get(`http://localhost:8080/games`)
             .then(res => {
@@ -44,7 +31,7 @@ function MainPage() {
     return (
         <Container>
             <h1>Games</h1>
-            <Row xl={5} xxl={7} lg={4} md={3} sm={2} s>
+            <Row xxl={7} xl={4}  lg={4} md={3} sm={2} s>
                 {
                     gameCards.length > 0 ? gameCards.map((game) => {
 
