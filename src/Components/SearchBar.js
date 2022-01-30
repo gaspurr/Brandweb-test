@@ -3,7 +3,7 @@ import { Container, Form } from 'react-bootstrap';
 import axios from "axios"
 import "./SearchBar.css"
 
-function SearchBar({ placeholder, data }) {
+function SearchBar({ placeholder }) {
 
     const [results, setResults] = useState([])
     const [input, setInput] = useState([])

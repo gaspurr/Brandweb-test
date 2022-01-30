@@ -7,8 +7,6 @@
     border-radius: 2px;
     height: 10vh;
     width: 33vh;
-    position:sticky;
-    z-index: 9000;
     overflow: hidden;
     overflow-y: auto;
     font-size: 16px;
