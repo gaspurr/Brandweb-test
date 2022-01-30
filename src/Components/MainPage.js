@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
+import {
+    Button,
+    Container,
+    Row,
+    Col,
+    Card,
+    Pagination
+} from "react-bootstrap"
 
 function MainPage() {
     const [results, setResults] = useState([])
@@ -34,47 +42,69 @@ function MainPage() {
 
 
     return (
-        <div className="container-sm">
+        <Container>
             <h1>Games</h1>
-            <div className="row row-cols-4">
+            <Row xl={5} xxl={7} lg={4} md={3} sm={2} s>
                 {
-                    gameCards ? gameCards.map(game => {
+                    gameCards.length > 0 ? gameCards.map((game) => {
 
                         return (
-                            <div className="col">
-                                <div className="card" style={{
-                                    maxWidth: "20rem",
-                                    marginBottom: "1rem"
+                            <Col key={game.id} >
+                                <Card style={{
+                                    minWidth: "10vh",
+                                    width: "100%",
+                                    marginBottom: "1rem",
+                                    maxHeight: "68vh",
+                                    height: "100%"
 
                                 }}>
-                                    <img style={{ height: "22vh" }} src={game.background_image} className="card-img-top" alt="Game image" />
-                                    <div className="card-body">
+                                    <Card.Img variant="top" style={{ minHeight: "20vh", minWidth: "24vh", maxHeight: "22vh", width: "100%" }} src={game.background_image} alt="Game image" />
+                                    <Card.Body style={{ alignItems: "space-between", display: "grid" }}>
                                         <h5 className="card-title">{game.name}</h5>
-                                        <p className="card-text">Rating: {game.rating}</p>
-                                        <p>
-                                            {game["genres"].map(genre => {
+                                        <Card.Text className="card-text">Rating: {game.rating}</Card.Text>
+                                        <Card.Text>
+                                            {game["genres"].map((genre) => {
                                                 return <span style={{
                                                     background: "lightgrey",
                                                     width: "100%",
-                                                    margin: "5px",
+                                                    margin: "0px 5px 0px 0px",
                                                     borderRadius: "5px",
-                                                    padding: "2px 4px 2px 4px"
-                                                }}>{genre.name}</span>
+                                                    padding: "2px 4px 2px 4px",
+                                                }} key={genre.id}>{genre.name}</span>
                                             })}
-                                        </p>
-                                        <p style={{fontSize: "0.8rem", color: "grey"}} className="card-text">Last updated: {game.updated.slice(0, 10)}</p>
-                                        <p className="card-text">{game.description}</p>
-                                        <button type="button" className="btn btn-primary">See details</button>
-                                    </div>
-                                </div>
-                            </div>
+                                        </Card.Text>
+                                        <Card.Text style={{ fontSize: "0.8rem", color: "grey" }}>Last updated: {game.updated.slice(0, 10)}</Card.Text>
+                                        <Card.Text >{game.description}</Card.Text>
+                                        <Button variant="primary">See details</Button>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
                         )
                     }) : null
                 }
-            </div>
+            </Row>
+            <p>This pagination below here doesn't work yet....</p>
+            <Pagination style={{ justifyContent: "center", marginTop: "10vh" }}>
+
+                <Pagination.First />
+                <Pagination.Prev />
+                <Pagination.Item>{1}</Pagination.Item>
+                <Pagination.Ellipsis />
+
+                <Pagination.Item>{10}</Pagination.Item>
+                <Pagination.Item>{11}</Pagination.Item>
+                <Pagination.Item active>{12}</Pagination.Item>
+                <Pagination.Item>{13}</Pagination.Item>
+                <Pagination.Item disabled>{14}</Pagination.Item>
+
+                <Pagination.Ellipsis />
+                <Pagination.Item>{20}</Pagination.Item>
+                <Pagination.Next />
+                <Pagination.Last />
+            </Pagination>
 
 
-        </div>
+        </Container>
     )
 }
 
