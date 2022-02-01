@@ -1,0 +1,47 @@
+
+.navbar {
+    background-color: rgb(46, 31, 130);
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position:static;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-logo {
+    color: #d5b710;
+    align-items: center;
+    flex-grow: 1;
+    margin-left: 15px;
+    font-size: 2rem;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    width: 20px;
+}
+
+.nav-logo:hover {
+    color: rgb(145, 183, 228);
+    transition: 0.3s ease
+}
+
+.nav-menu{
+    display: flex;
+    margin-right: 15px;
+    list-style: none;
+    align-items: center;
+}
+
+.nav-item {
+    margin-right: 1rem;
+    width: 40vh;
+}

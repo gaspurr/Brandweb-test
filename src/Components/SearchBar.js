@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Container, Form, FormControl } from 'react-bootstrap';
 import axios from "axios"
 import "./SearchBar.css"
@@ -61,9 +61,10 @@ function SearchBar({ placeholder }) {
                 <Container className="search-results">
                     {input.length != 0 ? input.map((game) => {
                         return (
-                            <Link key={game._id} to='/game' state={{
+                            <Link className="result-item" key={game._id} to='/game' state={{
                                 id: game.id
                             }} >{game.name}</Link>
+
                         )
 
                     }) : null}

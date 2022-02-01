@@ -83,7 +83,7 @@ function DetailedView() {
                                 <Container>
                                     <h4>Metacritic ratings</h4>
                                     <p><strong>Overall: </strong>{gameData.metacritic}</p>
-                                    <ul>
+                                    <ul key="unordered list">
                                         {platforms ? platforms.map((platform) => {
                                             return <li key={platform.id}>{platform.platform.name}: {platform.metascore}</li>
                                         }) : <div>No platforms yet</div>}

@@ -19,5 +19,35 @@
 
 .result-item {
     text-decoration: none;
-    color: black
+    color: black;
+    width: 100%;
+    height: min-content;
+    padding: 2px 20px;
+    margin-left: 0px;
+}
+
+.result-item:hover {
+    text-decoration: none;
+    background-color: lightgrey;
+    color: black;
+    border-radius: 3px;
+}
+
+.link-btn {
+    text-decoration: none;
+    padding: 10px 15px;
+    background-color:rgb(61, 45, 148);
+    border-radius: 5px;
+    width: max-content;
+    font-size: 20px;
+    font-weight: 300;
+    align-items: center;
+    color: #e3e3e3;
+}
+
+.link-btn:hover {
+    background-color:rgb(97, 82, 184);
+    color: white;
+    border: none;
+    transition: 0.3s ease;
 }
