@@ -8,7 +8,21 @@ const gameRoutes = require("./routes/games")
 const PORT = process.env.PORT || 8080
 
 const app = express()
-app.use(cors())
+const corsOpts = {
+    origin: "*",
+
+    methods: [
+        'GET',
+    ],
+
+    allowedHeaders: [
+        'Content-Type',
+        'Access-Control-Allow-Origin',
+        'Access-Control-Allow-Headers'
+    ],
+};
+
+app.use(cors(corsOpts));
 app.use(express.json())
 
 app.use(parser.json({ limit: "2mb", extended: true }))

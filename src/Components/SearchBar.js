@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Route, Routes } from "react-router-dom"
+import { Link} from "react-router-dom"
 import { Container, Form, FormControl } from 'react-bootstrap';
 import axios from "axios"
 import "./SearchBar.css"
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DetailedView from './DetailedView';
 
 function SearchBar({ placeholder }) {
 
@@ -63,7 +62,7 @@ function SearchBar({ placeholder }) {
                     {input.length != 0 ? input.map((game) => {
                         return (
                             <Link key={game._id} to='/game' state={{
-                                name: game.id
+                                id: game.id
                             }} >{game.name}</Link>
                         )
 

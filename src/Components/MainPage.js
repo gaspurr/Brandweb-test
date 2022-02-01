@@ -43,7 +43,7 @@ function MainPage() {
                     gameCards.length > 0 ? gameCards.map((game) => {
 
                         return (
-                            <Col key={game.id} >
+                            <Col alt="columns" key={game.id} >
                                 <Card style={{
                                     minWidth: "10vh",
                                     width: "100%",
@@ -52,10 +52,10 @@ function MainPage() {
                                     height: "100%"
 
                                 }}>
-                                    <Card.Img variant="top" style={{ minHeight: "20vh", minWidth: "24vh", maxHeight: "22vh", width: "100%" }} src={game.background_image} alt="Game image" />
-                                    <Card.Body style={{ alignItems: "space-between", display: "grid" }}>
+                                    <Card.Img alt="Game background" variant="top" style={{ minHeight: "20vh", minWidth: "24vh", maxHeight: "22vh", width: "100%" }} src={game.background_image} alt="Game image" />
+                                    <Card.Body alt="Body" style={{ alignItems: "space-between", display: "grid" }}>
                                         <h5 className="card-title">{game.name}</h5>
-                                        <Card.Text className="card-text">Rating: {game.rating}</Card.Text>
+                                        <Card.Text alt="Game's rating" className="card-text">Rating: {game.rating}</Card.Text>
                                         <Card.Text style={{display: "flex", height: "100%", flexWrap: "wrap"}}>
                                             {game["genres"].map((genre) => {
                                                 return <span style={{
@@ -69,7 +69,7 @@ function MainPage() {
                                                 }} key={genre.id}>{genre.name}</span>
                                             })}
                                         </Card.Text>
-                                        <Card.Text style={{ fontSize: "0.8rem", color: "grey" }}>Last updated: {game.updated.slice(0, 10)}</Card.Text>
+                                        <Card.Text alt="Card text" style={{ fontSize: "0.8rem", color: "grey" }}>Last updated: {game.updated.slice(0, 10)}</Card.Text>
                                         <Card.Text >{game.description}</Card.Text>
                                         <Button variant="primary">See details</Button>
                                     </Card.Body>
@@ -82,15 +82,15 @@ function MainPage() {
             <p>This pagination below here doesn't work yet....</p>
             <Pagination style={{ justifyContent: "center", marginTop: "10vh" }}>
 
-                <Pagination.First />
-                <Pagination.Prev />
+                <Pagination.First alt="First page" />
+                <Pagination.Prev alt="Prev page" />
                 {gameCards.length > 0 ? gameCards.map((page, index) =>{
-                    return <Pagination.Item value={index +1} key={index + 1} onClick={(e) => {
+                    return <Pagination.Item alt="Page selection" value={index +1} key={index + 1} onClick={(e) => {
                         handlePageChange(index+1)
                     }}>{index +1}</Pagination.Item>
                 }) : null}
-                <Pagination.Next />
-                <Pagination.Last />
+                <Pagination.Next alt="next page" />
+                <Pagination.Last alt="Last page" />
             </Pagination>
         </Container>
     )

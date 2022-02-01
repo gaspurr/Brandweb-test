@@ -114,7 +114,7 @@ exports.deleteOneGame = async (req, res) => {
 exports.getAllGamesNames = async (req, res) => {
 
 
-    const games = await Game.find({}, { name: 1 })
+    const games = await Game.find({}, { name: 1, id: 1 })
 
     if (games) {
         res.status(200).send(games)
