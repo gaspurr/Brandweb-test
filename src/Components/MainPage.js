@@ -11,10 +11,12 @@ import {
 
 function MainPage() {
     const [gameCards, setGameCards] = useState([])
+    const [page, setPage] = useState(1)
 
-        //I should use usememo here
-    const fetchCards = async () => {
-        await axios.get(`http://localhost:8080/games`)
+    //I should use usememo here maybe?
+    const fetchCards = async (page) => {
+        setGameCards([])
+        await axios.get(`http://localhost:8080/games/query?page=${page}&limit=${6}`)
             .then(res => {
                 setGameCards(...gameCards, res.data)
             }).catch(e => {
@@ -22,9 +24,14 @@ function MainPage() {
             })
     }
 
+    const handlePageChange = (value) =>{
+        //e.preventDefault()
+        setPage(value)
+    }
+
     useEffect(() => {
-        fetchCards()
-    }, []);
+        fetchCards(page)
+    }, [page]);
 
 
 
@@ -49,14 +56,16 @@ function MainPage() {
                                     <Card.Body style={{ alignItems: "space-between", display: "grid" }}>
                                         <h5 className="card-title">{game.name}</h5>
                                         <Card.Text className="card-text">Rating: {game.rating}</Card.Text>
-                                        <Card.Text>
+                                        <Card.Text style={{display: "flex", height: "100%", flexWrap: "wrap"}}>
                                             {game["genres"].map((genre) => {
                                                 return <span style={{
                                                     background: "lightgrey",
-                                                    width: "100%",
-                                                    margin: "0px 5px 0px 0px",
+                                                    width: "min-content",
+                                                    margin: "0px 5px 4px 0px",
                                                     borderRadius: "5px",
+                                                    height: "min-content",
                                                     padding: "2px 4px 2px 4px",
+                                                    flexWrap: "wrap"
                                                 }} key={genre.id}>{genre.name}</span>
                                             })}
                                         </Card.Text>
@@ -75,22 +84,14 @@ function MainPage() {
 
                 <Pagination.First />
                 <Pagination.Prev />
-                <Pagination.Item>{1}</Pagination.Item>
-                <Pagination.Ellipsis />
-
-                <Pagination.Item>{10}</Pagination.Item>
-                <Pagination.Item>{11}</Pagination.Item>
-                <Pagination.Item active>{12}</Pagination.Item>
-                <Pagination.Item>{13}</Pagination.Item>
-                <Pagination.Item disabled>{14}</Pagination.Item>
-
-                <Pagination.Ellipsis />
-                <Pagination.Item>{20}</Pagination.Item>
+                {gameCards.length > 0 ? gameCards.map((page, index) =>{
+                    return <Pagination.Item value={index +1} key={index + 1} onClick={(e) => {
+                        handlePageChange(index+1)
+                    }}>{index +1}</Pagination.Item>
+                }) : null}
                 <Pagination.Next />
                 <Pagination.Last />
             </Pagination>
-
-
         </Container>
     )
 }

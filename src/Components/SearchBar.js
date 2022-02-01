@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form } from 'react-bootstrap';
+import { Link, Route, Routes } from "react-router-dom"
+import { Container, Form, FormControl } from 'react-bootstrap';
 import axios from "axios"
 import "./SearchBar.css"
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import DetailedView from './DetailedView';
 
 function SearchBar({ placeholder }) {
 
@@ -35,12 +39,13 @@ function SearchBar({ placeholder }) {
 
 
 
+
     useEffect(() => {
         fetchSearchQueries()
     }, [])
     return (
         <Container>
-            <Container>
+            <Container style={{ display: "flex" }}>
                 <Form.Label htmlFor="Searchbar" />
                 <Form.Control
                     type="text"
@@ -48,12 +53,18 @@ function SearchBar({ placeholder }) {
                     placeholder={placeholder}
                     onChange={(e) => { handleFiltering(e) }}
                 />
+                <FormControl.Feedback>
+                    <FontAwesomeIcon icon={faSearch} />
+                </FormControl.Feedback>
+
             </Container>
             {input.length > 0 ?
                 <Container className="search-results">
                     {input.length != 0 ? input.map((game) => {
                         return (
-                            <a key={game._id} className="result-item" href="#" target="_blank">{game.name}</a>
+                            <Link key={game._id} to='/game' state={{
+                                name: game.id
+                            }} >{game.name}</Link>
                         )
 
                     }) : null}
