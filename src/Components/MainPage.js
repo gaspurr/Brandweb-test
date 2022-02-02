@@ -83,6 +83,7 @@ function MainPage() {
                     }) : null
                 }
             </Row>
+
             <p>This pagination below here for some reason doesn't work. I couldn't figure it out why</p>
             <Pagination style={{ justifyContent: "center", marginTop: "10vh" }}>
 

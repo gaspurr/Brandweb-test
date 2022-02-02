@@ -133,12 +133,12 @@ function DetailedView() {
                                     {platforms.length > 0 ? platforms.map((res) => {
 
                                         return ( <li key={res.platform.id}>{res.platform.name}: {res.metascore}</li>)
-                                    }) : <div>No ratings on different platforms yet.</div>}
+                                    }) : <div>No specific ratings on platforms yet.</div>}
                                 </ul>
                             </Container>
                         </Col>
                         <Col sx={5}>
-                            <h3>Gamer's feedback</h3>
+                            <h3>Player feedback</h3>
                             <h5>Overall rating: {gameData.rating}</h5>
                             <Pie 
                             data={data}/>
