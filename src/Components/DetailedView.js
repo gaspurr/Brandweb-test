@@ -93,11 +93,11 @@ function DetailedView() {
                 <Col>
                     <Col>
                         <h1 style={{ marginBottom: "30px" }}>{gameData.name}</h1>
-                        <Container style={{ background: "#e3e3e3", borderRadius: "8px", maxWidth: "100%" }}>
+                        <Container style={{ background: "#e3e3e3", borderRadius: "8px", maxWidth: "100%", padding: "10px" }}>
                             <h2>Description</h2>
-                            {gameData.description_raw}
+                            <p style={{fontSize: "18px"}}>{gameData.description_raw}</p>
                             <a style={{ marginTop: "20px" }} href={gameData.website}>Read more on their website</a>
-                            <p style={{ marginTop: "20px" }}>Released: {gameData.released} by {developers ? developers.map((dev, index) => {
+                            <p style={{ marginTop: "20px", fontWeight: 500 }}>Released: {gameData.released} by {developers ? developers.map((dev, index) => {
                                 return dev.name
                             }) : null}</p>
                         </Container>
@@ -124,7 +124,7 @@ function DetailedView() {
                 </Col>
                 <Col className="ratings-container" xs={5}>
                     <h3>Ratings</h3>
-                    <Row>
+                    <Row style={{padding: "10px"}}>
                         <Col>
                             <h3>Metacritic ratings</h3>
                             <Container>
@@ -137,7 +137,7 @@ function DetailedView() {
                                 </ul>
                             </Container>
                         </Col>
-                        <Col>
+                        <Col sx={5}>
                             <h3>Gamer's feedback</h3>
                             <h5>Overall rating: {gameData.rating}</h5>
                             <Pie 

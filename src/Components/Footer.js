@@ -18,10 +18,10 @@ function Footer() {
                             <p>*Boing</p>
                         </li>
                         <li key="2" className="nav-item">
-                            Even more interesting
+                            This could potentially be really interesting
                         </li>
                         <li key="3" className="nav-item">
-                            This could potentially be really interesting
+                            <p style={{ color: "red" }}>I don't know why the footer is not fixed to the bottom and why there is a gap</p>
                         </li>
                     </ul>
                 </div>
