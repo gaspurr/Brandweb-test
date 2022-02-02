@@ -2,12 +2,13 @@
     font-family: sans-serif;
 }
 .tag {
-    font-size: 12px;
+    font-size: 16px;
     height: min-content;
     border-radius: 5px;
     padding: 2px 6px;
     margin-right: 5px;
-    background-color: lightgrey;
+    background-color: rgb(89, 68, 213);
+    color: whitesmoke;
     width: max-content;
 }
 .tag:hover {
@@ -19,9 +20,11 @@
 
 .genre {
     border-radius: 6px;
+    font-size: 16px;
     padding: 0px 5px;
     margin-right: 5px;
-    background-color: lightgrey;
+    background-color: rgb(89, 68, 213);
+    color: whitesmoke;
     width: min-content;
     display: flex;
 }
@@ -30,4 +33,9 @@
     transform: translate(0, -3px);
     box-shadow: 0px 3px 3px rgb(125, 125, 125);
     cursor: pointer;
+}
+
+.ratings-container {
+    background-color: lightgrey;
+    border-radius: 10px;
 }

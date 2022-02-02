@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom"
 import axios from "axios"
 import {
-    Button,
     Container,
     Row,
     Col,
     Card,
     Pagination
 } from "react-bootstrap"
+
 
 function MainPage() {
     const [gameCards, setGameCards] = useState([])
@@ -17,7 +17,7 @@ function MainPage() {
     //I should use usememo here maybe?
     const fetchCards = async (page) => {
         setGameCards([])
-        await axios.get(`http://localhost:8080/games/query?page=${page}&limit=${6}`)
+        await axios.get(`http://localhost:8080/games/query?page=${page}&limit=${12}`)
             .then(res => {
                 setGameCards(...gameCards, res.data)
             }).catch(e => {

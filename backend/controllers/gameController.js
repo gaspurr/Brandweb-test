@@ -8,7 +8,7 @@ exports.updateGameDb = async (req, res) => {
 
     await axios.get(`https://api.rawg.io/api/games?key=${process.env.API_KEY}`)
         .then(response => {
-            const sliced = response.data["results"].slice(0, 15)
+            const sliced = response.data["results"].slice(0, 200)
             sliced.map(obj => {
                 const foo = {
                     id: obj.id,

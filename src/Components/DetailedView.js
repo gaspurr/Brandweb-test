@@ -9,9 +9,19 @@ import {
 import { useLocation } from 'react-router';
 import { API_KEY } from "../env"
 import "./DetailedView.css"
+import { Chart as ChartJS } from 'chart.js/auto'
+import { Pie }            from 'react-chartjs-2'
+
 
 function DetailedView() {
     const [gameData, setGameData] = useState([])
+    const [chartData, setChartData] = useState({
+        platforms: [],
+        ratings: [],
+        developers: [],
+        genres: [],
+        tags: [],
+    })
 
     const location = useLocation()
     const { id } = location.state
@@ -20,18 +30,55 @@ function DetailedView() {
         await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
             .then(res => {
                 setGameData(...gameData, res.data)
+                console.log(res.data)
+                setChartData({
+                    platforms: res.data.metacritic_platforms,
+                    ratings: res.data.ratings,
+                    developers: res.data.developers,
+                    genres: res.data.genres,
+                    tags: res.data.tags,
+                })
             }).catch(e => {
                 console.log({ message: e })
             })
+            console.log(chartData)
     }
 
-    const platforms = gameData.metacritic_platforms
+    const platforms = chartData.metacritic_platforms
     const ratings = gameData.ratings
     const developers = gameData.developers
     const genres = gameData.genres
     const tags = gameData.tags
 
-    console.log(id)
+    const ratingsCount = chartData.ratings.map(rate =>{
+        return rate.count
+    })
+    const ratings1 = chartData.ratings.map(rate =>{
+        return rate.count
+    })
+    const ratingsTitle = chartData.ratings.map(rate =>{
+        return rate.title === "exceptional" ? `Exceptional 🏆` : rate.title === "recommended" ? "Recommended 👍" : rate.title === "skip" ? "Skip 🙅‍♂️" : "Meh 🤷‍♀️"
+    })
+
+    const ratingsPercent = chartData.ratings.map(rate =>{
+        return rate.percent
+    })
+
+
+    const data = {
+        labels: ratingsTitle,
+        datasets: [{
+            label: 'User feedback',
+            data: ratings1,
+            backgroundColor: [
+                'lightgreen',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(255, 99, 132)',
+            ],
+            hoverOffset: 4
+        }]
+    };
 
     useEffect(() => {
         fetchDetailedData(id)
@@ -75,37 +122,25 @@ function DetailedView() {
                         }) : null}
                     </Container>
                 </Col>
-                <Col xs={5}>
-                    <h1>Ratings</h1>
+                <Col className="ratings-container" xs={5}>
+                    <h3>Ratings</h3>
                     <Row>
                         <Col>
                             <h3>Metacritic ratings</h3>
                             <Container>
                                 <p><strong>Overall: </strong>{gameData.metacritic}</p>
                                 <ul key="unordered list">
-                                    {platforms ? platforms.map((platform) => {
-                                        return <li key={platform.id}>{platform.platform.name}: {platform.metascore}</li>
-                                    }) : <div>No platforms yet</div>}
+                                    {chartData.platforms > 0 ? chartData.platforms.map((platform) => {
+                                        return <li key={platform.id}>{platform.name}: {platform.metascore}</li>
+                                    }) : <div>No ratings on different platforms yet.</div>}
                                 </ul>
                             </Container>
                         </Col>
                         <Col>
                             <h3>Gamer's feedback</h3>
                             <h5>Overall rating: {gameData.rating}</h5>
-                            {
-                                ratings ? ratings.map((rating) => {
-                                    return (
-                                        <Container>
-                                            <ul>
-                                                <li>
-
-                                                </li>
-                                            </ul>
-                                            <p key={rating.id}><strong>{rating.title === "exceptional" ? `Exceptional 🏆` : rating.title === "recommended" ? "Recommended 👍" : rating.title === "skip" ? "Skip 🙅‍♂️" : "Meh 🤷‍♀️"}:</strong> {rating.count}</p><p><strong>Percent:</strong> {rating.percent}%</p>
-                                        </Container>)
-
-                                }) : <p>No ratings yet :(</p>
-                            }
+                            <Pie 
+                            data={data}/>
                         </Col>
                     </Row>
 
