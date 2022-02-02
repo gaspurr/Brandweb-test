@@ -8,6 +8,7 @@ import {
 } from "react-bootstrap"
 import { useLocation } from 'react-router';
 import { API_KEY } from "../env"
+import "./DetailedView.css"
 
 function DetailedView() {
     const [gameData, setGameData] = useState([])
@@ -38,81 +39,81 @@ function DetailedView() {
 
     return (
         <Container>
-            <Row>
-                <Col sm={{ width: "50%", height: "50%" }} md={{ width: "20%", height: "20%" }} style={{ width: "80", heigth: "50%", marginBottom: "40px" }}>
-                    <img style={{ width: "80%", height: "80%" }} src={gameData.background_image} alt="Game's background picture" />
-                    <Row style={{ marginTop: "20px", height: "min-content", display: "flex" }}>
-                        {tags ? tags.map(tag => {
-                            return <p style={{
-                                fontSize: "10px",
-                                height: "min-content",
-                                borderRadius: "5px",
-                                padding: "5px",
-                                marginRight: "5px",
-                                backgroundColor: "lightgrey",
-                                width: "max-content"
-                            }} >{tag.name}</p>
-                        }) : null}
-                    </Row>
+            <Row style={{ marginBottom: "40px", marginTop: "40px" }}>
+                <Col>
+                    <img style={{ borderRadius: "8px", boxShadow: "10px 10px 5px grey", marginTop: "6rem", width: "80vh", height: "40vh" }} src={gameData.background_image} alt="Game's background picture" />
                 </Col>
                 <Col>
-                    <Container>
-                        <h1>{gameData.name}</h1>
-                        <Row>
-                            <Col>
-                                <Container>
-                                    <p>Released: {gameData.released} by {developers ? developers.map((dev, index) => {
-                                        return dev.name
-                                    }) : null}</p>
-                                    <h3>Genres</h3>
-                                    <Container style={{ display: "flex", flexWrap: "wrap" }}>
-                                        {genres ? genres.map((genre) => {
-                                            return <p style={{
-                                                borderRadius: "5px",
-                                                padding: "5px",
-                                                marginRight: "5px",
-                                                backgroundColor: "lightgrey",
-                                                width: "min-content",
-                                                display: "flex"
-                                            }}>{genre.name}</p>
-                                        }) : null}
-                                    </Container>
-                                </Container>
-                            </Col>
-                            <Col>
-                                <Container>
-                                    <h4>Metacritic ratings</h4>
-                                    <p><strong>Overall: </strong>{gameData.metacritic}</p>
-                                    <ul key="unordered list">
-                                        {platforms ? platforms.map((platform) => {
-                                            return <li key={platform.id}>{platform.platform.name}: {platform.metascore}</li>
-                                        }) : <div>No platforms yet</div>}
-                                    </ul>
-                                    <h5>Overall rating: {gameData.rating}</h5>
-                                    {
-                                        ratings ? ratings.map((rating) => {
-                                            return (
-                                                <Container>
-                                                    <p key={rating.id}><strong>{rating.title}:</strong> {rating.count}</p><p><strong>Percent:</strong> {rating.percent}%</p>
-                                                </Container>)
-
-                                        }) : <p>No ratings yet :(</p>
-                                    }
-                                </Container>
-                            </Col>
-                        </Row>
-                    </Container>
+                    <Col>
+                        <h1 style={{ marginBottom: "30px" }}>{gameData.name}</h1>
+                        <Container style={{ background: "#e3e3e3", borderRadius: "8px", maxWidth: "100%" }}>
+                            <h2>Description</h2>
+                            {gameData.description_raw}
+                            <a style={{ marginTop: "20px" }} href={gameData.website}>Read more on their website</a>
+                            <p style={{ marginTop: "20px" }}>Released: {gameData.released} by {developers ? developers.map((dev, index) => {
+                                return dev.name
+                            }) : null}</p>
+                        </Container>
+                    </Col>
                 </Col>
             </Row>
-            <Row style={{ maxWidth: "50%" }}>
-                <Col>
-                    <h1>Description</h1>
-                    {gameData.description_raw}
-                    <a href={gameData.website}>Read more on their website</a>
+            <Row>
+                <Col xs={4}>
+                    <h3>Tags</h3>
+                    <div style={{ marginTop: "20px", flexWrap: "wrap", display: "flex" }}>
+                        {tags ? tags.map(tag => {
+                            return <p className="tag">{tag.name}</p>
+                        }) : null}
+                    </div>
+                </Col>
+                <Col xs={2} sm={{ width: "50%", height: "50%" }} md={{ width: "20%", height: "20%" }} style={{ width: "80", heigth: "50%", marginBottom: "40px" }}>
+
+                    <h3>Genres</h3>
+                    <Container style={{ display: "flex", flexWrap: "wrap" }}>
+                        {genres ? genres.map((genre) => {
+                            return <p className="genre">{genre.name}</p>
+                        }) : null}
+                    </Container>
+                </Col>
+                <Col xs={5}>
+                    <h1>Ratings</h1>
+                    <Row>
+                        <Col>
+                            <h3>Metacritic ratings</h3>
+                            <Container>
+                                <p><strong>Overall: </strong>{gameData.metacritic}</p>
+                                <ul key="unordered list">
+                                    {platforms ? platforms.map((platform) => {
+                                        return <li key={platform.id}>{platform.platform.name}: {platform.metascore}</li>
+                                    }) : <div>No platforms yet</div>}
+                                </ul>
+                            </Container>
+                        </Col>
+                        <Col>
+                            <h3>Gamer's feedback</h3>
+                            <h5>Overall rating: {gameData.rating}</h5>
+                            {
+                                ratings ? ratings.map((rating) => {
+                                    return (
+                                        <Container>
+                                            <ul>
+                                                <li>
+
+                                                </li>
+                                            </ul>
+                                            <p key={rating.id}><strong>{rating.title === "exceptional" ? `Exceptional 🏆` : rating.title === "recommended" ? "Recommended 👍" : rating.title === "skip" ? "Skip 🙅‍♂️" : "Meh 🤷‍♀️"}:</strong> {rating.count}</p><p><strong>Percent:</strong> {rating.percent}%</p>
+                                        </Container>)
+
+                                }) : <p>No ratings yet :(</p>
+                            }
+                        </Col>
+                    </Row>
+
                 </Col>
             </Row>
         </Container>
-    );
+
+    )
 }
 
 export default DetailedView;

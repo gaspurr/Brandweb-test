@@ -1,0 +1,73 @@
+<Container>
+            <Row>
+                <Col sm={{ width: "50%", height: "50%" }} md={{ width: "20%", height: "20%" }} style={{ width: "80", heigth: "50%", marginBottom: "40px" }}>
+                    <img style={{ width: "80%", height: "80%" }} src={gameData.background_image} alt="Game's background picture" />
+                    <h3>Genres</h3>
+                    <Container style={{ display: "flex", flexWrap: "wrap" }}>
+                        {genres ? genres.map((genre) => {
+                            return <p style={{
+                                borderRadius: "5px",
+                                padding: "5px",
+                                marginRight: "5px",
+                                backgroundColor: "lightgrey",
+                                width: "min-content",
+                                display: "flex"
+                            }}>{genre.name}</p>
+                        }) : null}
+                    </Container>
+                    <Row style={{ marginTop: "20px", height: "min-content", display: "flex" }}>
+                        {tags ? tags.map(tag => {
+                            return <p style={{
+                                fontSize: "8px",
+                                height: "min-content",
+                                borderRadius: "5px",
+                                padding: "5px",
+                                marginRight: "5px",
+                                backgroundColor: "lightgrey",
+                                width: "max-content"
+                            }} >{tag.name}</p>
+                        }) : null}
+                    </Row>
+                </Col>
+                <Col>
+                    <Container>
+                        <h4>Metacritic ratings</h4>
+                        <p><strong>Overall: </strong>{gameData.metacritic}</p>
+                        <ul key="unordered list">
+                            {platforms ? platforms.map((platform) => {
+                                return <li key={platform.id}>{platform.platform.name}: {platform.metascore}</li>
+                            }) : <div>No platforms yet</div>}
+                        </ul>
+                        <h5>Overall rating: {gameData.rating}</h5>
+                        {
+                            ratings ? ratings.map((rating) => {
+                                return (
+                                    <Container>
+                                        <p key={rating.id}><strong>{rating.title}:</strong> {rating.count}</p><p><strong>Percent:</strong> {rating.percent}%</p>
+                                    </Container>)
+
+                            }) : <p>No ratings yet :(</p>
+                        }
+                    </Container>
+                </Col>
+
+                <Col>
+                    <Container>
+                        <h1>{gameData.name}</h1>
+                        <Row>
+                            <Col>
+                                <Container style={{ maxWidth: "100%%" }}>
+                                    <h1>Description</h1>
+                                    {gameData.description_raw}
+                                    <a href={gameData.website}>Read more on their website</a>
+                                    <p>Released: {gameData.released} by {developers ? developers.map((dev, index) => {
+                                        return dev.name
+                                    }) : null}</p>
+
+                                </Container>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Col>
+            </Row>
+        </Container>
