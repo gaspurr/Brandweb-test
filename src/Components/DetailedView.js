@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
 import {
-    Button,
     Container,
     Row,
     Col,
@@ -30,7 +29,6 @@ function DetailedView() {
         await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
             .then(res => {
                 setGameData(...gameData, res.data)
-                console.log(res.data)
                 setChartData({
                     platforms: res.data.metacritic_platforms,
                     ratings: res.data.ratings,
@@ -41,10 +39,9 @@ function DetailedView() {
             }).catch(e => {
                 console.log({ message: e })
             })
-            console.log(chartData)
     }
 
-    const platforms = chartData.metacritic_platforms
+    //const platforms = chartData.metacritic_platforms
     const ratings = gameData.ratings
     const developers = gameData.developers
     const genres = gameData.genres
@@ -63,6 +60,9 @@ function DetailedView() {
     const ratingsPercent = chartData.ratings.map(rate =>{
         return rate.percent
     })
+
+    const platforms = chartData.platforms
+    console.log(platforms)
 
 
     const data = {
@@ -130,8 +130,9 @@ function DetailedView() {
                             <Container>
                                 <p><strong>Overall: </strong>{gameData.metacritic}</p>
                                 <ul key="unordered list">
-                                    {chartData.platforms > 0 ? chartData.platforms.map((platform) => {
-                                        return <li key={platform.id}>{platform.name}: {platform.metascore}</li>
+                                    {platforms.length > 0 ? platforms.map((res) => {
+
+                                        return ( <li key={res.platform.id}>{res.platform.name}: {res.metascore}</li>)
                                     }) : <div>No ratings on different platforms yet.</div>}
                                 </ul>
                             </Container>
