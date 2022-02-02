@@ -6,6 +6,9 @@ const axios = require("axios")
 exports.updateGameDb = async (req, res) => {
     const array = []
 
+
+    //I should change this to update that checks documents and updates if necessary
+    //right now if you want to change the slice parameter and update the DB then you need to first drop it
     await axios.get(`https://api.rawg.io/api/games?key=${process.env.API_KEY}`)
         .then(response => {
             const sliced = response.data["results"].slice(0, 200)
